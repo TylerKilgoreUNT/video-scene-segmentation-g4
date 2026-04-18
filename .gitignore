@@ -1,0 +1,25 @@
+# Virtual environments - each developer creates their own locally
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE settings
+.vscode/settings.json
+.idea/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Test output / temp files
+*.log
