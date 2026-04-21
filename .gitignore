@@ -23,6 +23,7 @@ Thumbs.db
 
 # Test output / temp files
 *.log
+test_videos/
 
 # Local research / context docs (not for version control)
 docs/
