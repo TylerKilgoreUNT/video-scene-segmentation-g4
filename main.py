@@ -12,8 +12,10 @@ def build_parser():
     """Define CLI arguments for video playback and scene detection."""
     parser = argparse.ArgumentParser(description="Video Scene Segmentation (using PySceneDetect + OpenCV preview)")
     parser.add_argument("video_path", help="Path to input video file")
-    parser.add_argument("--threshold", type=float, default=40.0, 
-                        help="Threshold for ContentDetector (default: 40.0)")
+    parser.add_argument("--threshold", type=float, default=27.0, 
+                        help="Base threshold for ContentDetector (default: 27.0)")
+    parser.add_argument("--disable-adaptive", action="store_true", 
+                        help="Disable adaptive thresholding based on video brightness")
     return parser
 
 
@@ -86,13 +88,13 @@ def main():
 
     # 1. SCENE DETECTION (Using PySceneDetect API)
     print(f"Initializing SceneDetector with threshold={args.threshold}...")
-    detector = SceneDetectorModule(threshold=args.threshold)
+    detector = SceneDetectorModule(threshold=args.threshold, adaptive_threshold=not args.disable_adaptive)
     
     print(f"Processing video: {args.video_path}")
     scene_list = detector.detect(args.video_path)
     
     # Validate and print output
-    format_and_print_results(scene_list)
+    format_and_print_results(scene_list, threshold=getattr(detector, 'used_threshold', args.threshold))
 
 
     # 2. RAW PLAYBACK (Original behavior)

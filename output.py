@@ -1,4 +1,4 @@
-def format_and_print_results(scene_list):
+def format_and_print_results(scene_list, threshold=None):
     """
     Validates and displays the final scene detection results.
     PySceneDetect's scene_list returns tuples of FrameTimecode objects: (start_time, end_time)
@@ -9,6 +9,8 @@ def format_and_print_results(scene_list):
     
     print("\n" + "="*50)
     print(f"SCENE DETECTION RESULTS ({num_scenes} {scene_word} detected)")
+    if threshold is not None:
+        print(f"Threshold Used: {threshold}")
     print("="*50)
 
     if num_scenes == 0:
