@@ -16,6 +16,10 @@ def build_parser():
                         help="Base threshold for ContentDetector (default: 27.0)")
     parser.add_argument("--disable-adaptive", action="store_true", 
                         help="Disable adaptive thresholding based on video brightness")
+    parser.add_argument("--validation-threshold", type=float, default=1500.0, 
+                        help="L1 threshold for secondary core.py validation (default: 1500.0)")
+    parser.add_argument("--disable-validation", action="store_true", 
+                        help="Disable secondary validation layer")
     return parser
 
 
@@ -88,7 +92,12 @@ def main():
 
     # 1. SCENE DETECTION (Using PySceneDetect API)
     print(f"Initializing SceneDetector with threshold={args.threshold}...")
-    detector = SceneDetectorModule(threshold=args.threshold, adaptive_threshold=not args.disable_adaptive)
+    detector = SceneDetectorModule(
+        threshold=args.threshold, 
+        adaptive_threshold=not args.disable_adaptive,
+        enable_validation=not args.disable_validation,
+        validation_threshold=args.validation_threshold
+    )
     
     print(f"Processing video: {args.video_path}")
     scene_list = detector.detect(args.video_path)

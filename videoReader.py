@@ -123,3 +123,27 @@ class VideoReaderModule:
                 cursor += step
         finally:
             local_cap.release()
+
+    def get_frames_at(self, start_frame, num_frames):
+        """
+        Efficiently seeks to a specific 0-based frame index and reads a batch of frames.
+        Uses a separate VideoCapture to avoid mutating the main cap.
+        """
+        local_cap = cv2.VideoCapture(self.video_path)
+        if not local_cap.isOpened():
+            raise ValueError(f"Unable to open video at path: {self.video_path}")
+            
+        try:
+            # OpenCV frame property is 0-based
+            local_cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
+            
+            frames = []
+            for _ in range(num_frames):
+                success, frame = local_cap.read()
+                if not success:
+                    break
+                frames.append(frame)
+                
+            return frames
+        finally:
+            local_cap.release()
