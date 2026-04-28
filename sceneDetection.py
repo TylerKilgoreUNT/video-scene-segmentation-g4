@@ -72,7 +72,7 @@ class SceneDetectorModule:
     """
     Wraps the PySceneDetect SceneManager API to detect scene boundaries using HSV Histogram Analysis.
     """
-    def __init__(self, threshold=27.0, adaptive_threshold=True, enable_validation=True, validation_threshold=1500.0):
+    def __init__(self, threshold=27.0, adaptive_threshold=True, enable_validation=True, validation_threshold=250.0):
         self.base_threshold = threshold
         self.adaptive_threshold = adaptive_threshold
         self.enable_validation = enable_validation
@@ -117,7 +117,7 @@ class SceneDetectorModule:
             
         return scene_list
 
-    def validate_scene_cuts(self, scene_list, video_path, window_size=5, threshold=1500.0):
+    def validate_scene_cuts(self, scene_list, video_path, window_size=5, threshold=250.0):
         print("\n--- Validating Cuts via CoreProcessor ---")
         if len(scene_list) <= 1:
             print("No candidate cuts detected to validate.")

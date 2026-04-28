@@ -16,8 +16,8 @@ def build_parser():
                         help="Base threshold for ContentDetector (default: 27.0)")
     parser.add_argument("--disable-adaptive", action="store_true", 
                         help="Disable adaptive thresholding based on video brightness")
-    parser.add_argument("--validation-threshold", type=float, default=1500.0, 
-                        help="L1 threshold for secondary core.py validation (default: 1500.0)")
+    parser.add_argument("--validation-threshold", type=float, default=250.0, 
+                        help="L1 threshold for secondary core.py validation (default: 250.0)")
     parser.add_argument("--disable-validation", action="store_true", 
                         help="Disable secondary validation layer")
     return parser
