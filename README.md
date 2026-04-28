@@ -54,7 +54,7 @@ pip install -r requirements.txt
 ### 4. Run
 
 ```bash
-python main.py sample-5s.mp4
+python main.py sceneVideo.mp4
 ```
 
 This plays the raw video then shows a preprocessed preview. Press **q** to close each window.
